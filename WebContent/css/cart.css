@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+th {
+	border-bottom: 1px solid #ccc;
+}
+
+.cart-total {
+	text-align: right;
+	background: #ddd;
+}
+
+li {
+	list-style: none;
+	width: 30%;
+	float: left;
+}

@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+.form {
+	width: 50%;
+	margin-right: auto;
+	margin-left: auto;
+	background: white;
+}
+
+.button {
+	background: #84a2d4;
+	border-style: none;
+	color: white;
+	padding: 5px 15px;
+}
+
+.text {
+	text-align: right;
+}
+
+.emsg {
+	color: red;
+}
