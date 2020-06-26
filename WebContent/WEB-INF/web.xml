@@ -133,4 +133,14 @@
 		<url-pattern>/deleteCart</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>BuyItemsServlet</servlet-name>
+		<servlet-class>jp.co.aforce.servlets.BuyItemsServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>BuyItemsServlet</servlet-name>
+		<url-pattern>/buyItems</url-pattern>
+	</servlet-mapping>
+
 </web-app>

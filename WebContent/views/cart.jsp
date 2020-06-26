@@ -25,6 +25,10 @@
 		<li>ご注文完了</li>
 	</ul>
 
+	<br>
+
+	<p>カートには、以下の商品が入っています。</p>
+
 	<!-- 買い物かごの中身 -->
 	<table align="center">
 		<tr>
@@ -51,7 +55,7 @@
 						value="${data.quantity}" />個</td>
 					<td><c:out value="${data.item_price}" />円</td>
 					<td><c:out value="${data.item_tax_price}" />円(税込)</td>
-<%-- 					<td><c:out value="${data.subtotal}" />円</td> --%>
+					<td><c:out value="${data.subtotal}" />円</td>
 					<td><input class="button" type="submit" value="変更"
 						name="submit"></td>
 					<td><input class="button" type="submit" value="削除"
@@ -60,13 +64,19 @@
 			</table>
 		</form>
 	</c:forEach>
-	<table>
-		<tr>
-			<%-- 			<td colspan="4" class="cart-total">合計金額：<c:out value="${cartBean.total}" />円(税込)</td> --%>
+	<table align="right">
+		<tr class="cart-total">
+			<td colspan="4">消費税合計：</td>
+			<td><c:out value="${cartBean.tax_total}" />円</td>
 		</tr>
 
+		<tr class="cart-total">
+			<td colspan="4">合計金額：</td>
+			<td><c:out value="${cartBean.total}" />円(税込)</td>
+		</tr>
 	</table>
 
+	<br>
 	<ul>
 		<li><form method="POST" action="/ShoppingSite/item">
 				<input class="button" type="submit" value="買い物を続ける" name="submit">

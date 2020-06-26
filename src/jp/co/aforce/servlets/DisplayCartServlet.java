@@ -5,6 +5,7 @@
 package jp.co.aforce.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -28,9 +29,9 @@ public class DisplayCartServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-			RequestDispatcher rDispatcher = request.getRequestDispatcher("/views/login.jsp");
-			rDispatcher.forward(request, response);
-
+		// ログイン画面に飛ばす
+		RequestDispatcher rDispatcher = request.getRequestDispatcher("/views/login.jsp");
+		rDispatcher.forward(request, response);
 
 	}
 
@@ -46,14 +47,33 @@ public class DisplayCartServlet extends HttpServlet {
 		LoginBean loginUser = (LoginBean) session.getAttribute("loginUser");
 		String member_no = loginUser.getMember_no();
 
+		// カートの中身を取得
 		CartModel cartModel = new CartModel();
+		CartBean cartBean = new CartBean();
 		List<CartBean> cartItems = cartModel.getCartItems(member_no);
 
-		// カートの中身をセッションに保存
-		session.setAttribute("cartItems", cartItems);
+		// 合計・消費税合計を求める
+		List<CartBean> listTotal = new ArrayList<CartBean>();
+		listTotal = cartItems;
 
-		// インスタンス化
-		//		CartBean cartBean = new CartBean();
+		int total = 0;
+		int taxTotal = 0;
+
+		for (int i = 0; i < listTotal.size(); i++) {
+			total = total + listTotal.get(i).getSubtotal();
+			taxTotal = taxTotal + listTotal.get(i).getTax_total();
+		}
+
+		cartBean.setTax_total(taxTotal);
+		cartBean.setTotal(total);
+
+		System.out.println(total);
+		System.out.println(taxTotal);
+
+		// カートの中身・合計・消費税合計をセッションに保存
+		session.setAttribute("cartItems", cartItems);
+		session.setAttribute("total", total);
+		session.setAttribute("tax_total", taxTotal);
 
 		//フォワード先の指定
 		String forward_jsp = "/views/cart.jsp";

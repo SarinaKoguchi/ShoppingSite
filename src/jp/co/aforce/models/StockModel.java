@@ -43,7 +43,7 @@ public class StockModel {
 
 	}
 
-	// 商品データを変更する
+	// 商品データを変更する(商品を購入する)
 	public boolean updateItemData(String item_id, String item_name, String item_price_string, String item_img, String item_stock_string) {
 		boolean result = true;
 

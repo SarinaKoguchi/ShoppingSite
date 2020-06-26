@@ -41,6 +41,7 @@ public class CartModel {
 
 	// 消費税
 	public static final double TAX = 1.1;
+	public static final double TAXRATE = 0.1;
 
 	// カートの商品を表示する
 	public List<CartBean> getCartItems(String member_no) {
@@ -54,15 +55,18 @@ public class CartModel {
 			DBUtil.makeStatement();
 
 			// SQLを実行
-			// TODO 小計、税込、合計の表示
 			String SQL = "SELECT *"
 					+ ", sum(quantity)"
-					+ ",item_price * '" + TAX + "' as item_tax_price"
-					+ ",sum(item_price) * '" + TAX + "' as subtotal"
-					+ "FROM `cart` NATURAL JOIN `items` "
-					+ "WHERE cart.member_no = '" + member_no + "'"
-					+ "GROUP BY item_id";
+					+ ",item_price * " + TAX + " as item_tax_price"
+					+ ",sum(item_price) * " + TAX + " as subtotal"
+					+ ",sum(item_price) * " + TAXRATE + " as tax_total"
+					+ " FROM `cart` LEFT OUTER JOIN `items`"
+					+ " ON cart.item_id = items.item_id"
+					+ " WHERE cart.member_no = '" + member_no + "'"
+					+ " GROUP BY cart.item_id";
 			rs = DBUtil.execute(SQL);
+
+
 
 			rs.beforeFirst();
 			while (rs.next()) {
@@ -74,13 +78,12 @@ public class CartModel {
 				cartBean.setItem_price(rs.getInt("item_price"));
 				cartBean.setMember_no(rs.getString("member_no"));
 				cartBean.setQuantity(rs.getInt("sum(quantity)"));
-				// 税込・小計・合計
+				// 税込価格・小計・消費税
 				cartBean.setSubtotal(rs.getInt("subtotal"));
+				cartBean.setTax_total(rs.getInt("tax_total"));
 				cartBean.setItem_tax_price(rs.getInt("item_tax_price"));
 				cartItems.add(cartBean);
 			}
-
-//			Int total
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -92,7 +95,7 @@ public class CartModel {
 
 	}
 
-	// カートの商品を削除する
+	// カートの商品を削除する(商品を購入する)
 	// TODO 動作確認未了
 	public boolean deleteCart(String item_id, String member_no) {
 		boolean result = true;
@@ -121,5 +124,6 @@ public class CartModel {
 		return result;
 
 	}
+
 
 }

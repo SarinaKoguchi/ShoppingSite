@@ -16,6 +16,7 @@ public class CartBean implements Serializable {
 	private String member_no;
 	private int quantity;
 	private int subtotal;
+	private int tax_total;
 	private int total;
 	private String msg;
 
@@ -53,6 +54,10 @@ public class CartBean implements Serializable {
 
 	public void setSubtotal(int subtotal) {
 		this.subtotal = subtotal;
+	}
+
+	public void setTax_total(int tax_total) {
+		this.tax_total = tax_total;
 	}
 
 	public void setTotal(int total) {
@@ -94,6 +99,10 @@ public class CartBean implements Serializable {
 
 	public int getSubtotal() {
 		return subtotal;
+	}
+
+	public int getTax_total() {
+		return tax_total;
 	}
 
 	public int getTotal() {
