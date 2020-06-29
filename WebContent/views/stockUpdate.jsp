@@ -11,6 +11,7 @@
 <link href="<c:url value="/css/style.css" />" rel="stylesheet">
 </head>
 <body>
+
 	<h1>商品情報の変更</h1>
 	<p>下記の情報に変更します。</p>
 	<p>

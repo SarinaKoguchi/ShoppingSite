@@ -7,19 +7,24 @@
 <head>
 <meta charset="UTF-8">
 <title>注文完了</title>
-<link href="<c:url value="/css/style.css" />" rel="stylesheet">
+<link href="<c:url value="/css/itemList.css" />" rel="stylesheet">
 <link href="<c:url value="/css/cart.css" />" rel="stylesheet">
 </head>
 <body>
+
+	<!-- ヘッダー -->
+	<jsp:include page="/viewsBeforeLogin/header.jsp" />
+
 	<!-- 現在位置 -->
-	<ul>
+	<ul class="location">
 		<li>カートの商品</li>
 		<li>ご注文内容の確認</li>
-		<li>ご注文完了</li>
+		<li class="current">ご注文完了</li>
 	</ul>
 	<br>
 
 	<p>ご注文ありがとうございました。</p>
+	<img src="${pageContext.request.contextPath}/img/kuma_ThankYou.png" class="picture">
 
 	<form method="POST" action="/ShoppingSite/item">
 		<input class="button" type="submit" value="商品一覧に戻る" name="submit">

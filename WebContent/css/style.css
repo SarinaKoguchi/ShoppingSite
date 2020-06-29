@@ -3,8 +3,30 @@
 body {
 	text-align: center;
 	background: whitesmoke;
+	width: 90%;
+	margin-right: auto;
+	margin-left: auto;
+	font-family: 'Lobster', cursive;
 }
 
-img {
+/* トップへ戻るボタン */
+.pagetop {
+	color: #fff;
+	background-color: rgba(0, 0, 0, 0.3);
+	text-decoration: none;
+	display: none;
+	position: fixed;
+	bottom: 1rem;
+	right: 1rem;
+	font-size: 1.3rem;
+	width: 2.5rem;
+	height: 2.5rem;
+	line-height: 2.5rem;
+	border-radius: 2.5rem;
+	text-align: center;
+	cursor: pointer;
+}
+
+.picture {
 	width: 20%;
 }

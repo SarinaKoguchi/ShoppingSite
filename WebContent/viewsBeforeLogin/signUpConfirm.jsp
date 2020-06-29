@@ -42,7 +42,7 @@
 	</p>
 
 	<button
-		onclick="location.href='http://localhost:8090/ShoppingSite/views/signUp.jsp'"
+		onclick="location.href='http://localhost:8090/ShoppingSite/viewsBeforeLogin/signUp.jsp'"
 		type="button">入力フォームへ戻る</button>
 	<a href="">登録</a>
 

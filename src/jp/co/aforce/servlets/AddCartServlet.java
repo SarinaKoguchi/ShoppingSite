@@ -46,14 +46,11 @@ public class AddCartServlet extends HttpServlet {
 		String item_id = request.getParameter("item_id");
 		String item_quantity_string = request.getParameter("quantity");
 
-		// 文字列を数値に変換
-		int quantity = Integer.parseInt(item_quantity_string);
-
 		// インスタンス化
 		CartBean cartBean = new CartBean();
 		CartModel cartModel = new CartModel();
 
-		if (cartModel.addCart(item_id, member_no, quantity)) {
+		if (cartModel.addCart(item_id, member_no, item_quantity_string)) {
 			// 成功
 			cartBean.setMsg("カートに入れました。");
 			request.setAttribute("cartBean", cartBean);

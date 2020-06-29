@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import jp.co.aforce.beans.ItemBean;
 import jp.co.aforce.models.ItemModel;
@@ -28,12 +29,11 @@ public class SearchServlet extends HttpServlet {
 		// 文字のエンコードを UTF-8 とする。これがないと文字化け。
 		request.setCharacterEncoding("UTF-8");
 
-		// 商品データを取得
+		// インスタンス化
 		ItemModel itemModel = new ItemModel();
 		ItemBean itemBean = new ItemBean();
-		List<ItemBean> items = itemModel.getItems();
 
-		request.setAttribute("items", items);
+		HttpSession session = request.getSession();
 
 		// 検索フォームの入力値を取得
 		String search = request.getParameter("search");

@@ -206,7 +206,7 @@
 
 					<td colspan="2">
 						<button class="button"
-							onclick="location.href='http://localhost:8090/ShoppingSite/views/index.html'"
+							onclick="location.href='http://localhost:8090/ShoppingSite/index.html'"
 							type="button">戻る</button>
 					</td>
 					<td><input class="button" type="submit" value="確認"></td>

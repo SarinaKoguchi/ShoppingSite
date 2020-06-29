@@ -12,10 +12,13 @@
 <link href="<c:url value="/css/style.css" />" rel="stylesheet">
 </head>
 <body>
+
 	<h1>商品の削除</h1>
 
 	<p>下記の商品情報を削除します</p>
-	<p><c:out value="${itemBean.msg }" /></p>
+	<p>
+		<c:out value="${itemBean.msg }" />
+	</p>
 	<form method="POST" action="/ShoppingSite/stockDelete">
 		<table align="center">
 			<tr>

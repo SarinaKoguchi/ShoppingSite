@@ -67,21 +67,22 @@ public class DisplayCartServlet extends HttpServlet {
 		cartBean.setTax_total(taxTotal);
 		cartBean.setTotal(total);
 
-		System.out.println(total);
-		System.out.println(taxTotal);
+		System.out.println("total = " + total);
+		System.out.println("taxTotal = " + taxTotal);
 
-		// カートの中身・合計・消費税合計をセッションに保存
+		// 該当ユーザのカートの中身・合計・消費税合計をセッションに保存
 		session.setAttribute("cartItems", cartItems);
 		session.setAttribute("total", total);
-		session.setAttribute("tax_total", taxTotal);
+		session.setAttribute("taxTotal", taxTotal);
+
+		// カートの中身が空だった場合メッセージ表示
+		if (cartItems.isEmpty()) {
+			cartBean.setMsg("カートの中身は空です。");
+			request.setAttribute("cartBean", cartBean);
+		}
 
 		//フォワード先の指定
 		String forward_jsp = "/views/cart.jsp";
-
-		//		if (cartItems.equals("")) {
-		//			cartBean.setMsg("カートの中身がありません。");
-		//			request.setAttribute("cartBean", cartBean);
-		//		}
 
 		// フォワード
 		RequestDispatcher rDispatcher = request.getRequestDispatcher(forward_jsp);

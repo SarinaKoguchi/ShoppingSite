@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+.upper {
+	border: solid 3px #aaa;
+	margin-top: 0px;
+}
+
+.icon {
+	width: 5%;
+	vertical-align: middle;
+}
+
+p {
+	vertical-align: middle;
+}
+
+/* ログイン後情報 */
+.user, .cart, .search, .cart {
+	display: inline;
+}
+
+.cartImg {
+	width: 5%;
+	height: 5%;
+	padding: 0;
+	margin: 0;
+	background: none;
+	border: 0;
+	font-size: 0;
+	line-height: 0;
+	overflow: visible;
+	cursor: pointer;
+}

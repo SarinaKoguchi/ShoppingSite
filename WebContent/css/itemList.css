@@ -4,24 +4,32 @@ li {
 	list-style: none;
 }
 
-.item {
+#itemList li {
 	width: 30%;
 	float: left;
 }
 
 img {
-	width: 50%;
+	width: 55%;
 }
 
-.cart {
-    width: 5%;
-    height: 5%;
-    padding:0;
-    margin:0;
-    background:none;
-    border:0;
-    font-size:0;
-    line-height:0;
-    overflow:visible;
-    cursor:pointer;
+table {
+	width: 95%;
+	table-layout: fixed;
+}
+
+.register {
+	width: 30%;
+}
+
+.id {
+	width: 10%;
+}
+
+.img, .name {
+	width: 25%;
+}
+
+.btn {
+	width: 10%;
 }

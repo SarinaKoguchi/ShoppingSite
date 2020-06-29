@@ -19,10 +19,6 @@ public class LogoutServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-
-		// GETリクエストはあり得ないので、無条件でログイン画面に飛ばす
-		RequestDispatcher rDispatcher = request.getRequestDispatcher("/views/login.jsp");
-		rDispatcher.forward(request, response);
 	}
 
 	@Override
@@ -34,12 +30,10 @@ public class LogoutServlet extends HttpServlet {
 
 		// セッションを破棄
 		HttpSession session = request.getSession();
-
-		session.removeAttribute("login_state");
-		session.removeAttribute("loginUser");
+		session.invalidate();
 
 		// フォワード先指定
-		String forward_jsp = "/views/login.jsp";
+		String forward_jsp = "/viewsBeforeLogin/login.jsp";
 
 		// forwaed_jsp に設定されているJSPへディスパッチ
 		RequestDispatcher rDispatcher = request.getRequestDispatcher(forward_jsp);

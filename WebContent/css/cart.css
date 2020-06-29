@@ -4,13 +4,41 @@ th {
 	border-bottom: 1px solid #ccc;
 }
 
+table {
+	width: 90%;
+	table-layout: fixed;
+}
+
+.send, .total {
+	width: 30%;
+	table-layout: auto;
+}
+
 .cart-total {
 	text-align: right;
 	background: #ddd;
+}
+
+ul {
+  padding-top: 10px;
+  padding-bottom: 10px
 }
 
 li {
 	list-style: none;
 	width: 30%;
 	float: left;
+}
+
+.location li {
+	border: 1px solid;
+	border-color: #ccc;
+}
+
+.itemImg {
+	width: 30%;
+}
+
+.current {
+	background: #ddd;
 }

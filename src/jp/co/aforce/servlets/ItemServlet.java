@@ -28,9 +28,6 @@ public class ItemServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		RequestDispatcher rDispatcher = request.getRequestDispatcher("/views/login.jsp");
-		rDispatcher.forward(request, response);
-
 	}
 
 	// LoginServlet から遷移
@@ -41,10 +38,23 @@ public class ItemServlet extends HttpServlet {
 		// 文字のエンコードを UTF-8 とする。これがないと文字化け。
 		request.setCharacterEncoding("UTF-8");
 
-		ItemModel itemModel = new ItemModel();
 		HttpSession session = request.getSession();
-		List<ItemBean> items = itemModel.getItems();
+		ItemModel itemModel = new ItemModel();
 
+		String sort = "";
+
+		if (request.getParameter("sort") != null) {
+			sort = request.getParameter("sort"); // ソート順を取得
+		}
+
+		if (sort.isEmpty()) {
+			// JSPから受け取っていない場合はセッションから取得
+			sort = (String) session.getAttribute("sort");
+		} else {
+			session.setAttribute("sort", sort); // セッションにセット
+		}
+
+		List<ItemBean> items = itemModel.getItems(sort); // ソート順を引数で渡すように変更
 		session.setAttribute("items", items);
 
 		// ユーザ権限情報取得

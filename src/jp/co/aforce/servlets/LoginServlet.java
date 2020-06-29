@@ -25,10 +25,6 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-
-		// GETリクエストはあり得ないので、無条件でログイン画面に飛ばす
-		RequestDispatcher rDispatcher = request.getRequestDispatcher("/views/login.jsp");
-		rDispatcher.forward(request, response);
 	}
 
 	@Override
@@ -42,7 +38,7 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		// フォワード先指定
-		String forward_jsp = "/views/login.jsp";
+		String forward_jsp = "/viewsBeforeLogin/login.jsp";
 
 		// ユーザによって入力された情報を取り出す リクエストパラメータの取得
 		String mail = request.getParameter("mail");
@@ -65,6 +61,9 @@ public class LoginServlet extends HttpServlet {
 
 			// ログイン状態をセッションに保存
 			session.setAttribute("login_state", "login");
+
+			//ソート状態をセッションに保存
+			session.setAttribute("sort", "1"); // デフォルト（価格が高い順）
 
 			// フォワード先
 			forward_jsp = "/item";

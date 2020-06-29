@@ -9,14 +9,17 @@ import jp.co.aforce.util.DBUtil;
 
 public class CartModel {
 
-	// カートに商品を入れる
-	public boolean addCart(String item_id, String member_no, int quantity) {
+	// カートに商品を入れる・数量を変更する
+	public boolean addCart(String item_id, String member_no, String item_quantity_string) {
 		boolean result = true;
 
 		try {
 			// DBに接続するための手続
 			DBUtil.makeConnection();
 			DBUtil.makeStatement();
+
+			// 文字列を数値に変換
+			int quantity = Integer.parseInt(item_quantity_string);
 
 			// Beanに値を格納する
 			CartBean cartBean = new CartBean();
@@ -25,7 +28,7 @@ public class CartModel {
 			cartBean.setQuantity(quantity);
 
 			// SQLを実行
-			String SQL = "INSERT INTO `cart`(member_no, item_id, quantity) VALUES"
+			String SQL = "INSERT INTO `cart` (member_no, item_id, quantity) VALUES "
 					+ "('" + member_no + "', '" + item_id + "', '" + quantity + "')";
 			DBUtil.execute(SQL);
 
@@ -56,17 +59,14 @@ public class CartModel {
 
 			// SQLを実行
 			String SQL = "SELECT *"
-					+ ", sum(quantity)"
-					+ ",item_price * " + TAX + " as item_tax_price"
-					+ ",sum(item_price) * " + TAX + " as subtotal"
-					+ ",sum(item_price) * " + TAXRATE + " as tax_total"
+					+ ",items.item_price * " + TAX + " AS item_tax_price"
+					+ ",items.item_price * " + TAX + " * quantity AS subtotal"
+					+ ",items.item_price * " + TAXRATE + " * quantity AS tax_total"
 					+ " FROM `cart` LEFT OUTER JOIN `items`"
 					+ " ON cart.item_id = items.item_id"
 					+ " WHERE cart.member_no = '" + member_no + "'"
 					+ " GROUP BY cart.item_id";
 			rs = DBUtil.execute(SQL);
-
-
 
 			rs.beforeFirst();
 			while (rs.next()) {
@@ -77,7 +77,7 @@ public class CartModel {
 				cartBean.setItem_img(rs.getString("item_img"));
 				cartBean.setItem_price(rs.getInt("item_price"));
 				cartBean.setMember_no(rs.getString("member_no"));
-				cartBean.setQuantity(rs.getInt("sum(quantity)"));
+				cartBean.setQuantity(rs.getInt("quantity"));
 				// 税込価格・小計・消費税
 				cartBean.setSubtotal(rs.getInt("subtotal"));
 				cartBean.setTax_total(rs.getInt("tax_total"));
@@ -96,7 +96,6 @@ public class CartModel {
 	}
 
 	// カートの商品を削除する(商品を購入する)
-	// TODO 動作確認未了
 	public boolean deleteCart(String item_id, String member_no) {
 		boolean result = true;
 
@@ -125,5 +124,32 @@ public class CartModel {
 
 	}
 
+	// カートの商品を空にする
+	public boolean allDeleteCart(String member_no) {
+		boolean result = true;
+
+		try {
+			// DBに接続するための手続
+			DBUtil.makeConnection();
+			DBUtil.makeStatement();
+
+			// Beanに値を格納する
+			CartBean cartBean = new CartBean();
+			cartBean.setMember_no(member_no);
+
+			// SQLを実行
+			String SQL = "DELETE FROM `cart` WHERE "
+					+ "member_no = '" + member_no + "'";
+			DBUtil.execute(SQL);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = false;
+		} finally {
+			DBUtil.closeConnection();
+		}
+		return result;
+
+	}
 
 }

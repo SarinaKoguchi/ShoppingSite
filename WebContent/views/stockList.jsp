@@ -10,12 +10,15 @@
 <meta charset="UTF-8">
 <title>管理者/商品管理</title>
 <link href="<c:url value="/css/style.css" />" rel="stylesheet">
+<link href="<c:url value="/css/itemList.css" />" rel="stylesheet">
 </head>
 <body>
+
 	<h1>商品管理</h1>
 
-	<a href="/.jsp"> ようこそ <c:out value="${loginUser.name}" /> さん
-	</a>
+	<p>
+		現在のユーザ名： <a href="/.jsp"> <c:out value="${loginUser.name}" /></a>
+	</p>
 
 	<form method="POST" action="/ShoppingSite/logout">
 		<input class="button" type="submit" value="ログアウト">
@@ -28,13 +31,13 @@
 
 	<table border="1" align="center">
 		<tr>
-			<th>商品ID</th>
-			<th>商品画像</th>
-			<th>商品名</th>
+			<th class="id">商品ID</th>
+			<th class="img">商品画像(パス)</th>
+			<th class="name">商品名</th>
 			<th>在庫</th>
 			<th>本体価格</th>
-			<th></th>
-			<th></th>
+			<th class="btn">変更</th>
+			<th class="btn">削除</th>
 		</tr>
 	</table>
 
@@ -42,21 +45,21 @@
 		<form method="POST" action="/ShoppingSite/stock">
 			<table border="1" align="center">
 				<tr>
-					<td><input type="text" name="item_id" size="20"
-						value="${data.item_id}" readonly></td>
-					<td><img
-						src="${pageContext.request.contextPath}/img/${data.item_img}">
-						<br> <input type="text" name="item_img" size="25"
+					<td class="id"><c:out value="${data.item_id}" /> <input
+						type="hidden" name="item_id" value="${data.item_id}"></td>
+					<td class="img"><img
+						src="${pageContext.request.contextPath}/img/${data.item_img}"><br>
+						<input type="text" name="item_img" size="30"
 						value="${data.item_img}" /></td>
-					<td><input type="text" name="item_name" size="30"
+					<td class="name"><input type="text" name="item_name" size="30"
 						value="${data.item_name}" /></td>
-					<td><input type="text" name="item_stock" size="3"
-						value="${data.item_stock}" /></td>
-					<td><input type="text" name="item_price" size="5"
+					<td><input type="text" name="item_stock" size="1"
+						value="${data.item_stock}" />個</td>
+					<td><input type="text" name="item_price" size="3"
 						value="${data.item_price}" />円</td>
-					<td><input class="button" type="submit" value="変更"
+					<td class="btn"><input class="button" type="submit" value="変更"
 						name="submit"></td>
-					<td><input class="button" type="submit" value="削除"
+					<td class="btn"><input class="button" type="submit" value="削除"
 						name="submit"></td>
 				</tr>
 			</table>
@@ -72,7 +75,7 @@
 	</p>
 
 	<form method="POST" action="/ShoppingSite/stock">
-		<table align="center">
+		<table align="center" class="register">
 			<tr>
 				<td>商品ID：</td>
 				<td><input type="text" name="item_id" size="25" /></td>

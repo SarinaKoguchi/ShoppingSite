@@ -13,6 +13,16 @@
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 
+	<filter>
+		<filter-name>LoginCheckFilter</filter-name>
+		<filter-class>jp.co.aforce.filters.LoginCheckFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>LoginCheckFilter</filter-name>
+		<url-pattern>/views/*</url-pattern>
+	</filter-mapping>
+
 	<servlet>
 		<servlet-name>LoginServlet</servlet-name>
 		<servlet-class>jp.co.aforce.servlets.LoginServlet</servlet-class>
@@ -124,13 +134,13 @@
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>DeleteCartServlet</servlet-name>
-		<servlet-class>jp.co.aforce.servlets.DeleteCartServlet</servlet-class>
+		<servlet-name>UpdateCartServlet</servlet-name>
+		<servlet-class>jp.co.aforce.servlets.UpdateCartServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>DeleteCartServlet</servlet-name>
-		<url-pattern>/deleteCart</url-pattern>
+		<servlet-name>UpdateCartServlet</servlet-name>
+		<url-pattern>/updateCart</url-pattern>
 	</servlet-mapping>
 
 	<servlet>

@@ -1,3 +1,7 @@
+/*
+ *  商品に関する処理(一般ユーザ向け)
+ */
+
 package jp.co.aforce.models;
 
 import java.sql.ResultSet;
@@ -10,7 +14,7 @@ import jp.co.aforce.util.DBUtil;
 public class ItemModel {
 
 	// 商品データを取得
-	public List<ItemBean> getItems() {
+	public List<ItemBean> getItems(String sort) {
 
 		ResultSet rs = null;
 		List<ItemBean> items = new ArrayList<ItemBean>();
@@ -22,6 +26,19 @@ public class ItemModel {
 
 			// SQLを実行
 			String SQL = "SELECT * FROM `items` ";
+			if (sort.equals("1")) {
+			     SQL = SQL + "ORDER BY `item_id` ASC";
+			} else if (sort.equals("2")) {
+			     SQL = SQL + "ORDER BY `item_id` DESC";
+			} else if (sort.equals("3")) {
+			     SQL = SQL + "ORDER BY `item_price` DESC";
+			} else if(sort.equals("4")) {
+			     SQL = SQL + "ORDER BY `item_price` ASC";
+			} else if(sort.equals("5")) {
+			     SQL = SQL + "ORDER BY `item_name` ASC";
+			} else if(sort.equals("6")) {
+			     SQL = SQL + "ORDER BY `item_name` DESC";
+			}
 			rs = DBUtil.execute(SQL);
 
 			rs.beforeFirst();
@@ -59,7 +76,6 @@ public class ItemModel {
 			String SQL = "SELECT * FROM `items` WHERE "
 					+ "`item_id` LIKE '%" + search + "%'"
 					+ " OR `item_name` LIKE '%" + search + "%'";
-
 			rs = DBUtil.execute(SQL);
 
 			/* データを取得 */

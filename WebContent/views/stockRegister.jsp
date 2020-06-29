@@ -14,6 +14,7 @@
 <link href="<c:url value="/css/style.css" />" rel="stylesheet">
 </head>
 <body>
+
 	<h1>商品情報の登録</h1>
 
 	<p>下記の商品情報を登録します。</p>

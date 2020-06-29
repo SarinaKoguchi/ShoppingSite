@@ -1,3 +1,7 @@
+/*
+ *  商品に関する処理(管理者向け)
+ */
+
 package jp.co.aforce.models;
 
 import jp.co.aforce.beans.ItemBean;
@@ -43,8 +47,9 @@ public class StockModel {
 
 	}
 
-	// 商品データを変更する(商品を購入する)
-	public boolean updateItemData(String item_id, String item_name, String item_price_string, String item_img, String item_stock_string) {
+	// 商品データを変更する
+	public boolean updateItemData(String item_id, String item_name, String item_price_string, String item_img,
+			String item_stock_string) {
 		boolean result = true;
 
 		try {
@@ -92,6 +97,39 @@ public class StockModel {
 
 			// SQLを実行
 			String SQL = "DELETE FROM `items` WHERE `item_id` = '" + item_id + "'";
+			DBUtil.execute(SQL);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = false;
+		} finally {
+			DBUtil.closeConnection();
+		}
+		return result;
+
+	}
+
+	// 商品を購入する(数量の変更)
+	public boolean purchaseItems(String member_no, String item_id) {
+		boolean result = true;
+
+		try {
+			// DBに接続するための手続
+			DBUtil.makeConnection();
+			DBUtil.makeStatement();
+
+			// Beanに値を格納する
+			ItemBean itemBean = new ItemBean();
+			itemBean.setItem_id(item_id);
+
+			// SQLを実行
+			String SQL = "UPDATE `items` SET `item_stock` = "
+					+ "(SELECT items.item_stock - cart.quantity "
+					+ " FROM `cart` LEFT OUTER JOIN `items` "
+					+ " ON cart.item_id = items.item_id"
+					+ " WHERE cart.member_no = '" + member_no + "' "
+					+ " AND items.item_id = '" + item_id + "') "
+					+ " WHERE item_id = '" + item_id + "'";
 			DBUtil.execute(SQL);
 
 		} catch (Exception e) {

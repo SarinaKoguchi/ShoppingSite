@@ -11,11 +11,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="<c:url value="/css/style.css" />" rel="stylesheet">
 <link href="<c:url value="/css/login.css" />" rel="stylesheet">
 <title>ログイン画面</title>
 </head>
 <body>
+
+	<!-- ヘッダー -->
+	<jsp:include page="/viewsBeforeLogin/header.jsp" />
+
 	<div class="form">
 		<h1>LOGIN FORM</h1>
 
@@ -39,9 +42,9 @@
 				</tr>
 				<tr>
 					<td><button class="button"
-							onclick="location.href='http://localhost:8090/ShoppingSite/views/index.html'"
+							onclick="location.href='http://localhost:8090/ShoppingSite/index.html'"
 							type="button">戻る</button></td>
-					<td><input class="button" type="submit" value="ログイン" ></td>
+					<td><input class="button" type="submit" value="ログイン"></td>
 				</tr>
 			</table>
 		</form>
